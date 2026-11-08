@@ -55,7 +55,7 @@ label.lbl{display:block;font-weight:800;margin:16px 0 4px}
 .q{font-size:22px;font-weight:800;margin:6px 0 14px}
 .big{font-size:96px;text-align:center;line-height:1.15;margin:4px 0}
 .sw{display:inline-block;width:1em;height:1em;border-radius:50%;border:3px solid rgba(0,0,0,.12);vertical-align:middle}
-.stars{display:inline-grid;gap:.1em .14em;font-size:.4em;line-height:1;vertical-align:middle}.stars i{font-style:normal}.ch.pic .stars{font-size:min(.4em,4.6vw)}
+.stars{display:inline-grid;gap:.1em .14em;font-size:.4em;line-height:1;vertical-align:middle}.stars i{font-style:normal}.ch.pic .stars{font-size:.4em;font-size:min(.4em,4.6vw)}
 .lab{display:block;font-size:15px;font-weight:700;color:var(--m);margin-top:6px;line-height:1.25}.ch.ok .lab{color:#58A700}.ch.no .lab{color:var(--rd)}
 .fbpic{font-size:44px;vertical-align:middle;margin-right:6px}.your{font-weight:600;opacity:.85}
 .word{font-size:30px;font-weight:800;text-align:center}.tr{color:var(--m);text-align:center;font-size:18px}
@@ -91,8 +91,21 @@ label.lbl{display:block;font-weight:800;margin:16px 0 4px}
 </style>
 </head>
 <body>
-<div id="app"></div>
+<div id="app"><div id="boot" style="padding:40px 20px;text-align:center;color:#777">Yükleniyor…</div></div>
 <div class="toast" id="toast"></div>
+<script>
+/* Hata göstergesi (eski telefonlarda da çalışsın diye eski JavaScript ile): sayfa açılamazsa nedeni ekrana yazılır */
+(function(){var shown=0;function show(t){try{var d=document.getElementById("kerr");if(!d){d=document.createElement("pre");d.id="kerr";
+  d.style.cssText="white-space:pre-wrap;word-break:break-word;background:#FFDFE0;color:#B00;padding:12px;margin:10px;border-radius:10px;font:13px monospace;position:relative;z-index:99";
+  document.body.insertBefore(d,document.body.firstChild);d.textContent="Bir hata oluştu. Bu ekranın görüntüsünü gönder:\n"+navigator.userAgent+"\n";}
+  if(shown++<6)d.textContent+="\n• "+t}catch(e){}}
+ window.onerror=function(m,src,l,c,e){show(m+" ("+String(src||"").split("/").pop()+":"+l+":"+c+")");};
+ window.addEventListener("unhandledrejection",function(e){show("Promise: "+(e.reason&&(e.reason.stack||e.reason.message)||e.reason));});
+ window.addEventListener("load",function(){setTimeout(function(){if(document.getElementById("boot"))show("Sayfa başlatılamadı (açılış tamamlanmadı).");},5000);});
+ if(!Array.prototype.flat)Array.prototype.flat=function(){return [].concat.apply([],this)};
+ if(!Array.prototype.flatMap)Array.prototype.flatMap=function(f,t){return [].concat.apply([],this.map(f,t))};
+})();
+</script>
 <script src="kurs_veri.js"></script>
 <script>
 "use strict";
